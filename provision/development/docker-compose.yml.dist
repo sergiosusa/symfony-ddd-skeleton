@@ -1,0 +1,38 @@
+version: '2'
+services:
+  nginx:
+    build: provision/development/nginx
+    container_name: app_dev_nginx
+    depends_on:
+      - fpm
+    ports:
+      - "80:80"
+    volumes_from:
+      - fpm
+    volumes:
+      - ./provision/development/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./var/logs/nginx:/var/logs/nginx
+    links:
+      - fpm
+
+  fpm:
+    build: provision/development/fpm
+    container_name: app_dev_fpm
+    ports:
+      - "2222:22"
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - .:/app
+    working_dir: /app
+
+  mysql:
+    image: mysql:5.7
+    container_name: app_dev_mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=app_api
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
