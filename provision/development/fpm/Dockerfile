@@ -15,6 +15,7 @@ RUN apt-key adv --keyserver keys.gnupg.net --recv-keys 7E3F070089DF5277 \
     telnet \
     php7.0-xdebug \
     php7.0-xml \
+    git-all \
  && rm -rf /var/lib/apt/lists/*
 
 RUN  rm /etc/php/7.0/cli/conf.d/20-xdebug.ini
