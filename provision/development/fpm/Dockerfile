@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM phpdockerio/php7-fpm
 
 # Get noninteractive frontend for Debian to avoid some problems:
 #    debconf: unable to initialize frontend: Dialog
